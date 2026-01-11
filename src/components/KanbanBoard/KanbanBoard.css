@@ -1,0 +1,363 @@
+/* Kanban Board Container */
+.kanban-board {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.board-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.board-header h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.board-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Board Columns Container */
+.board-columns {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 24px;
+}
+
+/* Column Styles */
+.kanban-column {
+  background-color: #ebecf0;
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 300px;
+  max-width: 300px;
+  max-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.column-header {
+  padding: 12px;
+  border-top: 4px solid #6366f1;
+  border-radius: 8px 8px 0 0;
+  margin: -12px -12px 12px -12px;
+  background-color: #ffffff;
+}
+
+.column-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #172b4d;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-count {
+  background-color: #dfe1e6;
+  color: #5e6c84;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Cards Container */
+.column-cards {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 100px;
+  padding: 4px;
+  margin: -4px;
+}
+
+.column-cards::-webkit-scrollbar {
+  width: 8px;
+}
+
+.column-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.column-cards::-webkit-scrollbar-thumb {
+  background-color: #c1c7d0;
+  border-radius: 4px;
+}
+
+/* Card Styles */
+.kanban-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: grab;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+.kanban-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.kanban-card:hover .card-actions {
+  opacity: 1;
+}
+
+.kanban-card.dragging {
+  opacity: 0.5;
+  transform: rotate(3deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.kanban-card.editing {
+  cursor: default;
+}
+
+.card-content {
+  padding-right: 60px;
+}
+
+.card-title {
+  font-size: 0.875rem;
+  color: #172b4d;
+  margin: 0;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* Card Actions */
+.card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.card-btn {
+  background: #f4f5f7;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5e6c84;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.card-btn:hover {
+  background: #ebecf0;
+}
+
+.card-btn.edit-btn:hover {
+  color: #0052cc;
+}
+
+.card-btn.delete-btn:hover {
+  color: #de350b;
+  background: #ffebe6;
+}
+
+/* Card Edit Input */
+.card-edit-input {
+  width: 100%;
+  border: 2px solid #0052cc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Drop Placeholder */
+.drop-placeholder {
+  background-color: rgba(0, 82, 204, 0.1);
+  border: 2px dashed #0052cc;
+  border-radius: 8px;
+  height: 60px;
+  margin-bottom: 8px;
+  transition: all 0.15s ease;
+}
+
+/* Add Card Button */
+.add-card-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.875rem;
+  color: #5e6c84;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  margin-top: 8px;
+}
+
+.add-card-btn:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+  color: #172b4d;
+}
+
+.plus-icon {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+/* Add Card Form */
+.add-card-form {
+  margin-top: 8px;
+}
+
+.add-card-input {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+.add-card-input:focus {
+  box-shadow: 0 0 0 2px #0052cc;
+}
+
+.add-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #0052cc;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #0065ff;
+}
+
+.btn-cancel {
+  background-color: transparent;
+  color: #5e6c84;
+}
+
+.btn-cancel:hover {
+  background-color: rgba(9, 30, 66, 0.08);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .board-columns {
+    justify-content: flex-start;
+  }
+
+  .kanban-column {
+    min-width: 280px;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    padding: 16px;
+  }
+
+  .board-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .board-columns {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .kanban-column {
+    min-width: 100%;
+    max-width: 100%;
+    max-height: none;
+  }
+
+  .column-cards {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kanban-board {
+    padding: 12px;
+  }
+
+  .board-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .board-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .kanban-column {
+    padding: 8px;
+  }
+
+  .kanban-card {
+    padding: 10px;
+  }
+
+  .card-content {
+    padding-right: 50px;
+  }
+
+  .card-actions {
+    opacity: 1;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+  .card-actions {
+    opacity: 1;
+  }
+
+  .kanban-card:hover {
+    transform: none;
+  }
+}
